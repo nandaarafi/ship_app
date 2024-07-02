@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "732075430709",
+    "project_id": "ship-apps",
+    "storage_bucket": "ship-apps.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:732075430709:android:c24a91ab27b5c5c94e727c",
+        "android_client_info": {
+          "package_name": "com.example.ship_apps"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB_NEqF4C6MtG2i5KeOlj24pcbV19A_1VA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
