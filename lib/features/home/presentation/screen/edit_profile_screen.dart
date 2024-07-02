@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
 import 'package:ship_apps/core/constants/colors.dart';
 import 'package:ship_apps/core/helper/helper_functions.dart';
 import 'package:ship_apps/core/routes/constants.dart';
@@ -18,6 +19,7 @@ import 'package:ship_apps/features/authentication/presentation/cubit/auth_cubit.
 
 import '../../../../core/routes/routes.dart';
 import '../../../authentication/data/auth_remote_data_source.dart';
+import '../../../authentication/presentation/provider/password_visibility.dart';
 import '../../../authentication/presentation/widgets/custom_button.dart';
 import '../../../authentication/presentation/widgets/custom_form_field.dart';
 import '../widgets/custom_edit_data_profile.dart';
@@ -49,6 +51,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
   late TextEditingController usernameController;
   late TextEditingController emailController;
+   TextEditingController newEmailController = TextEditingController(text: '');
+   TextEditingController newPasswordController = TextEditingController(text: '');
 
   late String oldAvatarUrl;
   @override
@@ -185,11 +189,223 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                     controller: usernameController,
                                   ),
                              SizedBox(height: SHelperFunctions.screenHeight(context) * 0.02),
-                             CustomTextFormField(
-                                    title: 'Email ',
-                                    controller: emailController,
-                                    isEditable: false,
-                                  ),
+                            Text("Email",
+                              style: Theme.of(context).textTheme.titleMedium,
+                            ),
+                            SizedBox(height: 6),
+                            GestureDetector(
+                               child: Container(
+                                 width: double.infinity,
+                                 padding: EdgeInsets.all(15),
+                                 decoration: BoxDecoration(
+                                   borderRadius: BorderRadius.circular(17),
+                                   color: SColors.white,
+                                   border: Border.all(
+                                     color: SColors.black
+                                   )
+                                 ),
+                                 child: Row(
+                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                   children: [
+                                     Text(emailController.text),
+                                     Icon(Icons.arrow_forward_ios)
+                                   ],
+                                 ),
+                               ),
+                               onTap: (){
+                                 print("Test");
+                                 showDialog(
+                                   context: context,
+                                   builder: (BuildContext context) {
+                                     return AlertDialog(
+                                       title: Text('Change Email'),
+                                       content: TextField(
+                                         controller: newEmailController,
+                                         decoration: InputDecoration(
+                                           hintText: 'Enter new email',
+                                         ),
+                                       ),
+                                       actions: <Widget>[
+                                         TextButton(
+                                           child: Text('Batal'),
+                                           onPressed: () {
+                                             AppRouter.router.pop();
+                                           },
+                                         ),
+                                         BlocConsumer<AuthChangeCubit, AuthChangeState>(
+                                           listener: (context, state) {
+                                             if (state is AuthChangeEmailRequestSuccess) {
+                                               CustomShowDialog
+                                                   .showOnPressedDialog(context,
+                                                   title: "Sukses",
+                                                   message: "Email telah dirubah anda harus login ulang",
+                                                   isCancel: false,
+                                                   onPressed: () {
+                                                     context.read<AuthCubit>()
+                                                         .signOut();
+                                                     AppRouter.router
+                                                         .pushReplacement(Routes
+                                                         .signInNamedPage);
+                                                   }
+                                               );
+                                             } else if (state is AuthChangeEmailFailed) {
+                                               print('Error from UI ${state.error}');
+                                               CustomShowDialog
+                                                   .showCustomDialog(context,
+                                                   title: "Error",
+                                                   message: state.error,
+                                                   isCancel: false
+                                               );
+                                             }
+                                           },
+                                           builder: (context, state) {
+
+                                             if (state is AuthChangeLoading) {
+                                               return Center(
+                                                   child: CircularProgressIndicator());
+                                             }
+                                             return TextButton(
+                                               child: Text('Simpan'),
+                                               onPressed: () {
+                                                 context.read<AuthChangeCubit>()
+                                                     .updateEmail(
+                                                     newEmail: newEmailController
+                                                         .text);
+                                                 AppRouter.router.pop();
+                                               },
+                                             );
+                                           },
+                                         ),
+                                       ],
+                                     );
+                                   },
+                                 );
+
+                                 },
+                             ),
+//
+                          SizedBox(height: SHelperFunctions.screenHeight(context) * 0.02),
+                            Text("Password",
+                              style: Theme.of(context).textTheme.titleMedium,
+                            ),
+                            SizedBox(height: 6),
+                            GestureDetector(
+                              child: Container(
+                                width: double.infinity,
+                                padding: EdgeInsets.all(15),
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(17),
+                                    color: SColors.white,
+                                    border: Border.all(
+                                        color: SColors.black
+                                    )
+                                ),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text("**************"),
+                                    Icon(Icons.arrow_forward_ios)
+                                  ],
+                                ),
+                              ),
+                              onTap: (){
+                                print("Test");
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return AlertDialog(
+                                      title: Text('Change Password'),
+                                      content: Container(
+                                        height: SHelperFunctions.screenHeight(context) * 0.12,
+                                        child: Column(
+                                          children: [
+                                            Consumer<PasswordVisibilityProvider>(
+                                              builder: (context, passwordVisibilityProvider, _) {
+                                              return TextField(
+                                              obscureText: passwordVisibilityProvider.obscureText,
+                                              controller: newPasswordController,
+                                              decoration: InputDecoration(
+                                                hintText: 'Enter new password',
+                                              ),
+                                            );
+                                          },
+                                        ),
+                                        Row(
+                                          children: [
+                                            Consumer<PasswordVisibilityProvider>(
+                                              builder: (context, passwordVisibilityProvider, _) {
+                                                return Checkbox(
+                                                  checkColor: SColors.white,
+                                                  value: !passwordVisibilityProvider.obscureText,
+                                                  onChanged: (value) {
+                                                    passwordVisibilityProvider.toggleObscureText();
+                                                  },
+                                                  // fillColor: SColors.white,
+                                                );
+                                              },
+                                            ),
+                                            Text("Tampilkan Password", style: TextStyle(
+                                                fontFamily: 'Poppins',
+                                                fontWeight: FontWeight.w600,
+                                                color: SColors.black
+                                            ),)
+                                          ],
+                                        ),
+                                          ],
+                                        ),
+                                      ),
+                                      actions: <Widget>[
+                                        TextButton(
+                                          child: Text('Batal'),
+                                          onPressed: () {
+                                            AppRouter.router.pop();
+                                          },
+                                        ),
+                                        BlocConsumer<AuthChangeCubit, AuthChangeState>(
+                                          listener: (context, state) {
+                                            if (state is AuthChangePasswordSuccess) {
+                                              print(state.newPassword);
+                                              CustomShowDialog
+                                                  .showOnPressedDialog(context,
+                                                  title: "Sukses",
+                                                  message: "Password telah dirubah anda harus login ulang",
+                                                  isCancel: false,
+                                                  onPressed: () {
+                                                    context.read<AuthCubit>().signOut();
+                                                    AppRouter.router.pushReplacement(Routes.signInNamedPage);
+                                                  }
+                                              );
+                                            } else if (state is AuthChangePasswordFailed) {
+                                              CustomShowDialog.showCustomDialog(context,
+                                                  title: "Error",
+                                                  message: state.error,
+                                                  isCancel: false
+                                              );
+                                            }
+                                          },
+                                          builder: (context, state) {
+                                            if (state is AuthChangeLoading) {
+                                              return Center(
+                                                  child: CircularProgressIndicator());
+                                            }
+                                            return TextButton(
+                                              child: Text('Simpan'),
+                                              onPressed: () {
+                                                context.read<AuthChangeCubit>()
+                                                    .updatePassword(
+                                                    newPassword:newPasswordController.text);
+                                                AppRouter.router.pop();
+                                              },
+                                            );
+                                          },
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                );
+
+                              },
+                            ),
                 
                             BlocConsumer<AuthCubit, AuthState>(
                               listener: (context, state) async {
@@ -243,49 +459,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                               },
                             ),
                             SizedBox(height: SHelperFunctions.screenHeight(context) * 0.02),
-                            BlocConsumer<AuthChangeCubit, AuthChangeState>(
-                                listener: (context, state) {
-                                  if (state is AuthChangeEmailSuccess){
-                                    bool isVerified = state.isVerified;
-                                    if (isVerified){
-                                      CustomShowDialog.showOnPressedDialog(context,
-                                          title: "Sukses",
-                                          message: "Email Telah Diganti Mohon Login Ulang",
-                                          isCancel : false,
-                                          onPressed: () {
-                                            // AppRouter.router.pushReplacement(Routes.signInNamedPage);
-                                          }
-                                      );
-                                    }
 
-                                  } else if(state is AuthChangeEmailRequestSuccess){
-                                    CustomShowDialog.showCustomDialog(context,
-                                        title: "Sukses",
-                                        message: "Cek Email Anda",
-                                        isCancel:  false
-                                    );
-                                  } else if (state is AuthChangeEmailFailed){
-                                    CustomShowDialog.showCustomDialog(context,
-                                        title: "Error",
-                                        message: state.error,
-                                        isCancel:  false
-                                    );
-                                  }
-                                      },
-                              builder: (context, state) {
-                                if (state is AuthChangeLoading){
-                                  return Center(child: CircularProgressIndicator());
-                                }
-                                  return CustomButton(
-                                title: "Change Email",
-                                onPressed: () {
-                                  context.read<AuthChangeCubit>().updateEmail(
-                                      newEmail: "nanda.rafi614@gmail.com",
-                                  );
-                                }
-                            );
-  },
-),
+
+
                           ]
                       ),
                     ),

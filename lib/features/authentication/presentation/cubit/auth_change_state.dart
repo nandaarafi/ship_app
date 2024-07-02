@@ -10,7 +10,21 @@ class AuthChangeInitial extends AuthChangeState {}
 
 class AuthChangeLoading extends AuthChangeState {}
 
-class AuthChangeEmailRequestSuccess extends AuthChangeState {}
+class AuthChangeEmailRequestSuccess extends AuthChangeState {
+  final String newEmail;
+  AuthChangeEmailRequestSuccess(this.newEmail);
+
+  @override
+  List<Object> get props => [newEmail];
+}
+
+class AuthChangePasswordSuccess extends AuthChangeState {
+  final String newPassword;
+  AuthChangePasswordSuccess(this.newPassword);
+
+  @override
+  List<Object> get props => [newPassword];
+}
 
 class AuthChangeEmailSuccess extends AuthChangeState {
   final bool isVerified;
@@ -27,3 +41,13 @@ class AuthChangeEmailFailed extends AuthChangeState {
   @override
   List<Object> get props => [error];
 }
+
+class AuthChangePasswordFailed extends AuthChangeState {
+  final String error;
+  AuthChangePasswordFailed(this.error);
+
+  @override
+  List<Object> get props => [error];
+}
+
+class AuthUpdateEmailFirestore extends AuthChangeState{}

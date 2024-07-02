@@ -22,7 +22,7 @@ class UserService {
   Future<void> updateUser(UserModel user) async {
     try {
       _userReference.doc(_auth.currentUser!.uid).update({
-        'email': user.email,
+        // 'email': user.email,
         'username': user.username,
         'avatarUrl': user.avatarUrl
       });

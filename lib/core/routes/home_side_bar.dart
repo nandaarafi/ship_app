@@ -175,7 +175,7 @@ class HomeNavigationDrawer extends StatelessWidget {
                     isCancel:  true,
                     onPressed: () async {
                               try{
-                                await AuthService().signOut();
+                                context.read<AuthCubit>().signOut();
                                 AppRouter.router.pop();
                                 AppRouter.router.pushReplacement(Routes.signInNamedPage);
                               } catch (e){

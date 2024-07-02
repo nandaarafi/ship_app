@@ -73,7 +73,7 @@ class ProfileScreen extends StatelessWidget {
                       if (state is AuthSuccess){
                         UserModel user = state.user;
                         return Container(
-                          height: SHelperFunctions.screenHeight(context) * 0.25,
+                          height: SHelperFunctions.screenHeight(context) * 0.28,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.all(Radius.circular(25)),
                               color: SColors.white),
@@ -102,6 +102,13 @@ class ProfileScreen extends StatelessWidget {
                                             Text(user.email!,
                                             overflow: TextOverflow.ellipsis,
                                             maxLines: 1,
+                                            ),
+                                            Text("Password",
+                                              style: STextStyle.labelStyle,
+                                            ),
+                                            Text("********",
+                                              overflow: TextOverflow.ellipsis,
+                                              maxLines: 1,
                                             ),
                                           ],
                                         ),
