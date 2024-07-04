@@ -315,7 +315,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                 ),
 
-                inputSection()
+                inputSection(),
+
+                SizedBox(height: SHelperFunctions.screenHeight(context) * 0.03,),
               
               ],
               

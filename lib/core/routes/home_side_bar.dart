@@ -29,7 +29,11 @@ class HomeNavigationDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-  final divider = Divider(color: SColors.secondaryBackground, height: 1);
+
+    final currentRoute =  ModalRoute.of(context)?.settings.name;
+
+
+    final divider = Divider(color: SColors.secondaryBackground, height: 1);
     return PopScope(
       canPop: true,
       onPopInvoked: (didpop){

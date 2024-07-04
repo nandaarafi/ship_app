@@ -15,7 +15,7 @@ class STheme {
     fontFamily: 'Poppins',
     brightness: Brightness.light,
     textTheme: STextTheme.lightTextTheme,
-    colorScheme: ColorScheme.fromSeed(seedColor: Colors.purple,
+    colorScheme: ColorScheme.fromSeed(seedColor: SColors.secondaryBackground,
       // primary: Colors.blue
     ),
   );

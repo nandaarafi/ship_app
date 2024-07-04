@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ship_apps/core/routes/routes.dart';
 
 class CustomShowDialog {
 
@@ -8,6 +9,7 @@ class CustomShowDialog {
     required String message,
     required bool isCancel
   }) { showDialog(
+      routeSettings: RouteSettings(),
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
@@ -18,7 +20,7 @@ class CustomShowDialog {
             isCancel
                 ? TextButton(
                     onPressed: () {
-                      Navigator.pop(context); // Close the dialog
+                      Navigator.of(context).pop(); // Close the dialog
                     },
                     child: Text('Cancel'),
                   )
@@ -26,7 +28,7 @@ class CustomShowDialog {
 
             TextButton(
               onPressed: () {
-                Navigator.pop(context); // Close the dialog
+                Navigator.of(context).pop(); // Close the dialog
               },
               child: Text('OK'),
             ),
@@ -53,7 +55,8 @@ class CustomShowDialog {
             isCancel
                 ? TextButton(
               onPressed: () {
-                Navigator.pop(context); // Close the dialog
+                // AppRouter.router.pop();
+                Navigator.of(context).pop(); // Close the dialog
               },
               child: Text('Cancel'),
             )

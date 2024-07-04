@@ -7,6 +7,7 @@ import 'package:ship_apps/features/authentication/presentation/screen/splash_scr
 import 'package:ship_apps/features/home/presentation/screen/daftar_resi_screen.dart';
 import 'package:ship_apps/features/home/presentation/screen/profile_screen.dart';
 import 'package:ship_apps/features/home/presentation/screen/cek_resi_screen.dart';
+import 'package:ship_apps/features/home/presentation/screen/qr_code_screen.dart';
 
 import '../../features/home/presentation/screen/edit_profile_screen.dart';
 import '../../features/home/presentation/screen/packet_capacity_screen.dart';
@@ -54,6 +55,17 @@ class AppRouter {
           }
       ),
       //EditProfileScreen
+
+      GoRoute(
+        path: Routes.qrCodeNamedPage, // Route for EditProfileScreen
+        builder: (BuildContext context, GoRouterState state) {
+          final user = state.extra! as UserModel;
+          return QrCodeScreen(
+            userCache: user,
+          );
+        },
+      ),
+
       GoRoute(
         path: Routes.editProfileNamedPage, // Route for EditProfileScreen
         builder: (BuildContext context, GoRouterState state) {

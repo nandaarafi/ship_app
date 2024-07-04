@@ -187,7 +187,7 @@ class _LoginScreenState extends State<LoginScreen> {
       return Padding(
         padding: const EdgeInsets.symmetric(horizontal: 32),
         child: Container(
-          height: SHelperFunctions.screenHeight(context) * 0.56,
+          // height: SHelperFunctions.screenHeight(context) * 0.56,
           margin: const EdgeInsets.only(top: 30),
           padding: const EdgeInsets.symmetric(
             horizontal: 20,
@@ -244,7 +244,9 @@ class _LoginScreenState extends State<LoginScreen> {
                     Image.asset("assets/images/vector_asset/icon1.png",
                       height: SHelperFunctions.screenHeight(context) * 0.25,
                     ),
-              inputSection()
+              inputSection(),
+
+              SizedBox(height: SHelperFunctions.screenHeight(context) * 0.04),
             ],),
           ),
 

@@ -43,7 +43,7 @@ class OvalClipperStack extends StatelessWidget {
           top: topStart,
           left: 0,
           right: 0,
-          bottom: 20,
+          bottom: 0,
           child: child,
         ),
 

@@ -64,7 +64,7 @@ class _DaftarResiScreenState extends State<DaftarResiScreen> {
 
                           // Container(child: Text("Test"),)
                           Container(
-                            height: SHelperFunctions.screenHeight(context) * 0.4,
+                            // height: SHelperFunctions.screenHeight(context) * 0.4,
                             width: SHelperFunctions.screenWidth(context) * 0.75,
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.all(Radius.circular(25)),
@@ -81,6 +81,7 @@ class _DaftarResiScreenState extends State<DaftarResiScreen> {
                                   ),
                                   SizedBox(height: SHelperFunctions.screenHeight(context) * 0.02),
                                   CustomTextFormField(
+                                    isInputNumber: true,
                                     title: 'Nomor Resi',
                                     hintText: 'Nomor Resi',
                                     controller: nomorResiController,

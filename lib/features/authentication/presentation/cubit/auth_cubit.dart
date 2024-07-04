@@ -107,6 +107,7 @@ class AuthCubit extends Cubit<AuthState> {
 
   void updateProfile({
     required String username,
+    required String newEmail,
     required String oldAvatarUrl,
     required bool isImageChanged,
     required XFile avatarImage,
@@ -120,7 +121,7 @@ class AuthCubit extends Cubit<AuthState> {
         // String newEmail = await AuthService().updateEmail(email);
         UserModel updatedUser = UserModel(
           id: _auth.currentUser!.uid,
-          // email: newEmail,
+          email: newEmail,
           username: username,
           avatarUrl: avatarUrl,
         );
@@ -130,8 +131,9 @@ class AuthCubit extends Cubit<AuthState> {
         // String newEmail = await AuthService().updateEmail(email);
         UserModel updatedUser = UserModel(
           id: _auth.currentUser!.uid,
-          // email: newEmail,
+          email: newEmail,
           username: username,
+          avatarUrl: oldAvatarUrl
         );
         await UserService().updateUser(updatedUser);
         emit(AuthSuccess(updatedUser));

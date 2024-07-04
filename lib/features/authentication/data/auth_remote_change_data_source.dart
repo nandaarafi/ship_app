@@ -30,17 +30,7 @@ class AuthRemoteChangeDataSource {
     try {
       User? user = FirebaseAuth.instance.currentUser;
       if (user != null) {
-        await user.updateEmail(newEmail).then((value) async {
-          // After the email is successfully updated, check if it's verified
-          await user.reload(); // Reload the user to get the updated email verification status
-          if (user.emailVerified) {
-            // Email is verified, you can perform additional actions here if needed
-            print('Email verified after update.');
-          } else {
-            // Email is not verified yet
-            print('Email not yet verified after update.');
-          }
-        });
+        await user.updateEmail(newEmail);
       } else {
         throw FirebaseAuthException(code: 'user-not-found', message: 'User not found.');
       }

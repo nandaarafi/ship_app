@@ -4,7 +4,7 @@ import 'package:equatable/equatable.dart';
 class HistoryDataModel extends Equatable {
   final String? id;
   final String nama;
-  final DateTime waktu;
+  final String waktu;
   final String status;
 
   HistoryDataModel({
@@ -17,7 +17,7 @@ class HistoryDataModel extends Equatable {
   Map<String, dynamic> toJson() {
     return {
       'nama': nama,
-      'waktu': waktu,
+      'waktu': FieldValue.serverTimestamp(),
       'status': status,
     };
   }
@@ -25,7 +25,7 @@ class HistoryDataModel extends Equatable {
     return HistoryDataModel(
       id: id,
       nama: json['nama'],
-      waktu: (json['waktu'] as Timestamp).toDate() ,
+      waktu: json['waktu'] ,
       status: json['status'],
     );
   }

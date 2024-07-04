@@ -53,7 +53,7 @@ class FirebaseApi {
             _androidChannel.id,
             _androidChannel.name,
             channelDescription: _androidChannel.description,
-            icon: 'mipmap/ic_launcher',
+            icon: '@mipmap/launcher_icon',
           ),
         ),
         payload: jsonEncode(message.toMap()),
@@ -65,7 +65,7 @@ class FirebaseApi {
 
 
   Future initLocalNotifications() async {
-    const android = AndroidInitializationSettings('mipmap/ic_launcher');
+    const android = AndroidInitializationSettings('@mipmap/launcher_icon');
     const settings = InitializationSettings(android: android);
 
     await _localNotifications.initialize(

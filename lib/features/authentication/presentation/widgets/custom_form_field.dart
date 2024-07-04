@@ -1,5 +1,6 @@
 // import 'package:airplane/shared/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '../../../../core/constants/colors.dart';
 
@@ -11,11 +12,13 @@ class CustomTextFormField extends StatefulWidget {
   final VoidCallback? onTap;
   final TextEditingController controller;
   final bool isEditable;
+  final bool isInputNumber;
 
 
   const CustomTextFormField({
     Key? key,
     required this.title,
+    this.isInputNumber = false,
     this.hintText,
     this.onTap,
     this.icon,
@@ -47,6 +50,8 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
             height: 6,
           ),
           TextFormField(
+            keyboardType: widget.isInputNumber ? TextInputType.number : null,
+            inputFormatters: widget.isInputNumber ? <TextInputFormatter>[FilteringTextInputFormatter.digitsOnly] : null,
             enabled: widget.isEditable,
             textAlign: TextAlign.start,
             autofocus: false,

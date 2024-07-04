@@ -8,12 +8,18 @@ class HistoryRemoteDataSource {
   final CollectionReference _userHistoryReference = FirebaseFirestore.instance
       .collection('users')
       .doc(_auth.currentUser!.uid)
-      .collection('history');
+      .collection('history')
+      ;
 
 
   Future<List<HistoryDataModel>> fetchHistoryData() async {
     try {
-      QuerySnapshot result = await _userHistoryReference.get();
+      QuerySnapshot result = await _userHistoryReference
+          .orderBy('waktu', descending: true)
+          .get();
+      // QuerySnapshot result = await _userHistoryReference
+      //     .orderBy(FieldPath.documentId, descending: true)
+      //     .get();
       List<HistoryDataModel> historyDataList = result.docs.map((e) {
         return HistoryDataModel.fromJson(
             e.id, e.data() as Map<String, dynamic>);

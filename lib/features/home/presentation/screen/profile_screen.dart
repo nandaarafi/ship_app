@@ -13,15 +13,26 @@ import '../../../authentication/presentation/widgets/custom_button.dart';
 import '../widgets/custom_circle_avatar.dart';
 
 
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key,
 
   });
 
   @override
+  State<StatefulWidget> createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen>{
+
+
+  @override
   Widget build(BuildContext context) {
     return PopScope(
       canPop: false,
+      onPopInvoked: (didPop){
+        //DO NOTHING
+        print("Something");
+      },
       child: Scaffold(
         body: Stack(
           children: [
@@ -73,7 +84,7 @@ class ProfileScreen extends StatelessWidget {
                       if (state is AuthSuccess){
                         UserModel user = state.user;
                         return Container(
-                          height: SHelperFunctions.screenHeight(context) * 0.28,
+                          // height: SHelperFunctions.screenHeight(context) * 0.28,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.all(Radius.circular(25)),
                               color: SColors.white),
@@ -121,6 +132,7 @@ class ProfileScreen extends StatelessWidget {
                                   title: 'KODE SAYA',
                                   margin: EdgeInsets.only(top: 20),
                                   onPressed: () {
+                                    AppRouter.router.push(Routes.qrCodeNamedPage, extra: user);
                                     //TODO: QR Code Generator
                                   },
                                 ),

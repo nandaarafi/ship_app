@@ -122,7 +122,7 @@ class _PacketCapacityScreenState extends State<PacketCapacityScreen>{
                   ),
                   Align(
                       alignment: Alignment.centerLeft,
-                      child: Text("3. PENUH \n    AMBIL SEKARANG!!!",
+                      child: Text("3. PENUH AMBIL \n    SEKARANG!!!",
                         style: STextStyle.bodyStyle.copyWith(
                             fontSize: 23,
                             fontWeight: FontWeight.w400

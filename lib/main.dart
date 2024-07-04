@@ -56,6 +56,8 @@ class MyApp extends StatelessWidget {
       themeMode: ThemeMode.system,
       theme: STheme.lightTheme,
       routerConfig: AppRouter.router,
+      // routerDelegate: AppRouter.router.routerDelegate,
+      // routeInformationParser: AppRouter.router.routeInformationParser,
     ),
     );
   }

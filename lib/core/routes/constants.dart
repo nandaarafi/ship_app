@@ -11,6 +11,7 @@ class Routes {
 
   static const profileNamedPage = '/profile';
   static const editProfileNamedPage = '/edit-profile';
+  static const qrCodeNamedPage = '/qr-code';
 
   static const packetCapacityNamedPage = '/packet-capacity';
   static const historyNamedPage = '/history';

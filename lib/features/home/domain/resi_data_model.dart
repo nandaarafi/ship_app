@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 
 class ResiDataModel extends Equatable {
@@ -19,6 +20,7 @@ class ResiDataModel extends Equatable {
       'nama': nama,
       'noResi': noResi,
       'status': status,
+      'timestamp': FieldValue.serverTimestamp()
     };
   }
   factory ResiDataModel.fromJson(String id, Map<String, dynamic> json) {

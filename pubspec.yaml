@@ -56,6 +56,9 @@ dependencies:
   #Icon and Native Splash Screen
   flutter_native_splash: ^2.3.10
 
+  #qr_flutter
+  qr_flutter: ^4.1.0
+
 
 
   cupertino_icons: ^1.0.6

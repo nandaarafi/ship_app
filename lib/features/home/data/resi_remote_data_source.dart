@@ -14,7 +14,9 @@ class ResiRemoteDataSource {
 
   Future<List<ResiDataModel>> fetchResiData() async {
     try {
-      QuerySnapshot result = await _userResiReference.get();
+      QuerySnapshot result = await _userResiReference
+          .orderBy('timestamp', descending: true)
+          .get();
       List<ResiDataModel> resiDataList = result.docs.map((e) {
         return ResiDataModel.fromJson(
             e.id, e.data() as Map<String, dynamic>);
