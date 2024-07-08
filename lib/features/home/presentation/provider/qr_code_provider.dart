@@ -16,4 +16,10 @@ class QrCodeProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  @override
+  void dispose() {
+    // Ensure no notifyListeners() is called here
+    super.dispose();
+  }
+
 }

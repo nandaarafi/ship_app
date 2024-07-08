@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:provider/provider.dart';
 import 'package:ship_apps/core/helper/helper_functions.dart';
 import 'package:ship_apps/core/routes/routes.dart';
 import 'package:ship_apps/core/theme/text_style.dart';
+import 'package:ship_apps/core/widgets/show_dialog.dart';
 import 'package:ship_apps/features/authentication/domain/auth_data_model.dart';
 import 'package:ship_apps/features/authentication/presentation/cubit/auth_cubit.dart';
+import 'package:ship_apps/features/home/presentation/provider/qr_code_provider.dart';
 
 import '../../../../core/constants/colors.dart';
 import '../../../../core/routes/constants.dart';
@@ -128,14 +131,30 @@ class _ProfileScreenState extends State<ProfileScreen>{
                                   ],
           
                                 ),
-                                CustomButtonColorState(
+                                Consumer<QrCodeProvider>(
+                                  builder: (context, qrProvider, child) {
+                                  return CustomButtonColorState(
+                                  backgroundColor: qrProvider.isQrCode
+                                      ? SColors.primaryBackground
+                                      : SColors.grey,
                                   title: 'KODE SAYA',
                                   margin: EdgeInsets.only(top: 20),
                                   onPressed: () {
-                                    AppRouter.router.push(Routes.qrCodeNamedPage, extra: user);
+                                    if (qrProvider.isQrCode){
+                                      AppRouter.router.push(Routes.qrCodeNamedPage, extra: user);
+                                    }
+                                    else {
+                                      // CustomShowDialog.showCustomDialog(
+                                      //     context,
+                                      //     title: "Error",
+                                      //     message: "Anda belum menerima notifikasi",
+                                      //     isCancel: false);
+                                    }
                                     //TODO: QR Code Generator
                                   },
-                                ),
+                                );
+  },
+),
           
                               ],
                             ),

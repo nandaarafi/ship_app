@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:ship_apps/core/routes/routes.dart';
 
 class CustomShowDialog {
-
   static void showCustomDialog(BuildContext context,
   {
     required String title,
@@ -69,6 +68,43 @@ class CustomShowDialog {
           ],
         );
       },
+    );
+  }
+}
+
+class CustomDialogClass extends StatelessWidget {
+  final String title;
+  final String message;
+  final bool isCancel;
+  const CustomDialogClass({
+    Key? key,
+    required this.title,
+    required this.message,
+    this.isCancel = false, // Default value for isCancel
+  }) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      title: Text(title),
+      content: Text(message),
+      actions: [
+        //Is Cancel Button
+        isCancel
+            ? TextButton(
+          onPressed: () {
+            AppRouter.router.pop(); // Close the dialog
+          },
+          child: Text('Cancel'),
+        )
+            : SizedBox.shrink(),
+
+        TextButton(
+          onPressed: () {
+            AppRouter.router.pop(); // Close the dialog
+          },
+          child: Text('OK'),
+        ),
+      ],
     );
   }
 }

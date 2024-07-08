@@ -1,11 +1,8 @@
 import 'dart:convert';
 import 'package:device_info_plus/device_info_plus.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:provider/provider.dart';
-import 'package:ship_apps/features/home/data/home_firebase_notification_data_source.dart';
 
 import '../../../core/routes/constants.dart';
 import '../../../core/routes/routes.dart';
@@ -16,6 +13,8 @@ Future<void> handleBackgroundMessage(RemoteMessage message) async {
   print('Title: ${message.notification?.title}');
   print('Body: ${message.notification?.body}');
   print('Payload: ${message.data}');
+  // AppRouter.router.go(Routes.profileNamedPage);
+
 }
 class FirebaseApi {
   final _firebaseMessaging = FirebaseMessaging.instance;
@@ -29,10 +28,11 @@ class FirebaseApi {
 
   final _localNotifications = FlutterLocalNotificationsPlugin();
 
-  void handleMessage(RemoteMessage? message){
+  void handleRemoteServerMessage(RemoteMessage? message){
     if (message == null) return;
-    AppRouter.router.pushNamed(Routes.profileNamedPage);
-    // final qrCodeProvider = Provider.of<QrCodeProvider>(AppRouter.router., listen: false);
+    AppRouter.router.go(Routes.profileNamedPage);
+    final qrCodeProvider = Provider.of<QrCodeProvider>(AppRouter.navigatorKey.currentContext!, listen: false);
+    qrCodeProvider.setQrCode(true);
   }
 
   Future initPushNotifications() async {
@@ -42,10 +42,14 @@ class FirebaseApi {
         badge: true,
         sound: true
     );
-    FirebaseMessaging.instance.getInitialMessage().then(handleMessage);
-    FirebaseMessaging.onMessageOpenedApp.listen(handleMessage);
+
+    FirebaseMessaging.instance.getInitialMessage().then(handleRemoteServerMessage);
+    FirebaseMessaging.onMessageOpenedApp.listen(handleRemoteServerMessage);
     FirebaseMessaging.onBackgroundMessage(handleBackgroundMessage);
+
+    //Do something when get a server message
     FirebaseMessaging.onMessage.listen( (message) {
+      // handleMessage(message);
       final notification = message.notification;
       if (notification == null) return;
       _localNotifications.show(
@@ -72,9 +76,16 @@ class FirebaseApi {
     const android = AndroidInitializationSettings('@mipmap/launcher_icon');
     const settings = InitializationSettings(android: android);
 
+    //Handling in App Notification and local
     await _localNotifications.initialize(
       settings,
-
+      // Set the local notification when tapped, and
+      // When app is openned notification tapped
+      onDidReceiveNotificationResponse: (details) {
+        AppRouter.router.go(Routes.profileNamedPage);
+        final qrCodeProvider = Provider.of<QrCodeProvider>(AppRouter.navigatorKey.currentContext!, listen: false);
+        qrCodeProvider.setQrCode(true);
+      },
     );
     final platform = _localNotifications.resolvePlatformSpecificImplementation<
         AndroidFlutterLocalNotificationsPlugin>();
@@ -92,12 +103,7 @@ class FirebaseApi {
     final fCMToken = await _firebaseMessaging.getToken();
     final deviceInfo = await getDeviceInfo();
     print("Token: $fCMToken");
-    // await HomeService().addDataCloudFirestore(token: fCMToken, deviceType: deviceInfo);
     initPushNotifications();
     initLocalNotifications();
   }
-
-
-
-
 }

@@ -13,19 +13,22 @@ import '../../features/home/presentation/screen/edit_profile_screen.dart';
 import '../../features/home/presentation/screen/packet_capacity_screen.dart';
 import '../../features/home/presentation/screen/pickup_history_screen.dart';
 import '../errors/routes_error.dart';
+import '../widgets/show_dialog.dart';
 import 'constants.dart';
+import 'dialog_route.dart';
 import 'home_side_bar.dart';
 
 
 class AppRouter {
+  static final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>(debugLabel: 'root');
 
-  static final GlobalKey<NavigatorState> _rootNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'root');
-  static final GlobalKey<NavigatorState> _shellNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'shell');
+  // static final GlobalKey<NavigatorState> _rootNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'root');
+  // static final GlobalKey<NavigatorState> _shellNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'shell');
 
   static final GoRouter _router = GoRouter(
     initialLocation: Routes.splashScreenNamedPageRoot,
     debugLogDiagnostics: true,
-    navigatorKey: _rootNavigatorKey,
+    // navigatorKey: navigatorKey,
     routes: [
       //Splash Screen
       GoRoute(
@@ -79,7 +82,7 @@ class AppRouter {
 
       //Home ShellRoute Screen Sidebar
       ShellRoute(
-          navigatorKey: _shellNavigatorKey,
+          // navigatorKey: _shellNavigatorKey,
           pageBuilder: (BuildContext context, GoRouterState state, child){
             return NoTransitionPage(
                 child: HomeNavigationDrawer(child: child) // I have EditProfileScreen inside this where I place that
@@ -88,7 +91,7 @@ class AppRouter {
           routes: <RouteBase>[
             GoRoute(
                 path: Routes.profileNamedPage,
-                parentNavigatorKey: _shellNavigatorKey,
+                // parentNavigatorKey: _shellNavigatorKey,
                 pageBuilder: (BuildContext context, GoRouterState state){
                   return NoTransitionPage(
                       child: ProfileScreen()
@@ -97,7 +100,7 @@ class AppRouter {
             ),
             GoRoute(
                 path: Routes.daftarResiNamedPage,
-                parentNavigatorKey: _shellNavigatorKey,
+                // parentNavigatorKey: _shellNavigatorKey,
                 pageBuilder: (BuildContext context, GoRouterState state){
                   return NoTransitionPage(
                       child: DaftarResiScreen());
@@ -105,7 +108,7 @@ class AppRouter {
             ),
             GoRoute(
                 path: Routes.checkResiNamedPage,
-                parentNavigatorKey: _shellNavigatorKey,
+                // parentNavigatorKey: _shellNavigatorKey,
                 pageBuilder: (BuildContext context, GoRouterState state) {
                   return  NoTransitionPage(
                       child: CheckResiScreen()
@@ -114,7 +117,7 @@ class AppRouter {
             ),
             GoRoute(
                 path: Routes.packetCapacityNamedPage,
-                parentNavigatorKey: _shellNavigatorKey,
+                // parentNavigatorKey: _shellNavigatorKey,
                 pageBuilder: (BuildContext context, GoRouterState state) {
                   return  NoTransitionPage(
                       child: PacketCapacityScreen()
@@ -124,7 +127,7 @@ class AppRouter {
 
             GoRoute(
                 path: Routes.historyNamedPage,
-                parentNavigatorKey: _shellNavigatorKey,
+                // parentNavigatorKey: _shellNavigatorKey,
                 pageBuilder: (BuildContext context, GoRouterState state) {
                   return  NoTransitionPage(
                       child: PickupHistoryScreen()

@@ -86,7 +86,7 @@ class _LoginScreenState extends State<LoginScreen> {
     Widget inputSection() {
       Widget emailInput() {
         final emailFocusNode = FocusNode(); // Create a FocusNode
-        return CustomTextFormFieldSuggest(
+        return CustomTextFormField(
           title: 'Email ',
           hintText: 'admin@gmail.com',
           controller: emailController,
@@ -119,7 +119,7 @@ class _LoginScreenState extends State<LoginScreen> {
         final passFocusNode = FocusNode(); // Create a FocusNode
         return Consumer<PasswordVisibilityProvider>(
             builder: (context, passwordVisibilityProvider, _) {
-          return CustomTextFormFieldSuggest(
+          return CustomTextFormField(
               hintText: "Password",
               title: 'Password',
               obsecureText: passwordVisibilityProvider.obscureText,
