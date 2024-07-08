@@ -6,8 +6,6 @@ import 'package:ship_apps/features/home/domain/history_data_model.dart';
 class HistoryRemoteDataSource {
   static final FirebaseAuth _auth = FirebaseAuth.instance;
   final CollectionReference _userHistoryReference = FirebaseFirestore.instance
-      .collection('users')
-      .doc(_auth.currentUser!.uid)
       .collection('history')
       ;
 
@@ -33,6 +31,14 @@ class HistoryRemoteDataSource {
   Future<void> createHistoryData(HistoryDataModel historyData) async {
     try {
       await _userHistoryReference.add(historyData.toJson());
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  Future<void> deleteHistoryData(String historyId) async {
+    try{
+      await _userHistoryReference.doc(historyId).delete();
     } catch (e) {
       throw e;
     }

@@ -18,6 +18,8 @@ class AllResiSuccess extends ResiState {
   List<Object> get props => [resi];
 }
 
+class DeleteResiSuccess extends ResiState {}
+
 class AddResiSuccess extends ResiState {
   // final ResiDataModel resi;
   // AddResiSuccess(this.resi);

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ship_apps/core/constants/colors.dart';
 import 'package:ship_apps/core/helper/helper_functions.dart';
+import 'package:ship_apps/core/routes/constants.dart';
+import 'package:ship_apps/core/routes/routes.dart';
 import 'package:ship_apps/core/theme/text_style.dart';
 import 'package:ship_apps/core/widgets/show_dialog.dart';
 import 'package:ship_apps/features/home/presentation/cubit/resi_cubit.dart';
@@ -81,7 +83,7 @@ class _DaftarResiScreenState extends State<DaftarResiScreen> {
                                   ),
                                   SizedBox(height: SHelperFunctions.screenHeight(context) * 0.02),
                                   CustomTextFormField(
-                                    isInputNumber: true,
+                                    // isInputNumber: true,
                                     title: 'Nomor Resi',
                                     hintText: 'Nomor Resi',
                                     controller: nomorResiController,
@@ -91,10 +93,14 @@ class _DaftarResiScreenState extends State<DaftarResiScreen> {
                                   BlocConsumer<ResiCubit, ResiState>(
                                     listener: (context, state) {
                                       if(state is AddResiSuccess){
-                                        CustomShowDialog.showCustomDialog(context,
+                                        CustomShowDialog.showOnPressedDialog(context,
                                             title:  "Sukses",
                                             message:  "Berhasil menambahkan Data",
-                                            isCancel:  false
+                                            isCancel:  false,
+                                          onPressed: () {
+                                            AppRouter.router.go(Routes.checkResiNamedPage);
+                                            AppRouter.router.pop();
+                                          }
                                         );
                                       } else if (state is ResiFailed){
                                         CustomShowDialog.showCustomDialog(context,
@@ -115,8 +121,8 @@ class _DaftarResiScreenState extends State<DaftarResiScreen> {
                                     onPressed: () {
                                       context.read<ResiCubit>().createNewResi(
                                         nama: namaController.text,
-                                        noResi: int.parse(nomorResiController.text),
-                                        status: "Diterima",
+                                        noResi: nomorResiController.text,
+                                        status: "Belum Diterima",
                                       );
                                     },
                                   );

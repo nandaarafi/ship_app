@@ -7,8 +7,6 @@ import '../domain/resi_data_model.dart';
 class ResiRemoteDataSource {
   static final FirebaseAuth _auth = FirebaseAuth.instance;
   final CollectionReference _userResiReference = FirebaseFirestore.instance
-                            .collection('users')
-                            .doc(_auth.currentUser!.uid)
                             .collection('resiData');
 
 
@@ -30,6 +28,14 @@ class ResiRemoteDataSource {
   Future<void> createResiData(ResiDataModel resiData) async {
     try {
       await _userResiReference.add(resiData.toJson());
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  Future<void> deleteResiData(String resiId) async{
+    try{
+      await _userResiReference.doc(resiId).delete();
     } catch (e) {
       throw e;
     }

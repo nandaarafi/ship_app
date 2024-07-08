@@ -14,7 +14,8 @@ import 'core/theme/theme.dart';
 import 'features/authentication/presentation/cubit/auth_cubit.dart';
 import 'features/authentication/presentation/provider/password_visibility.dart';
 import 'features/home/data/home_firebase_notification.dart';
-import 'features/home/presentation/provider/ImageProvider.dart';
+import 'features/home/presentation/provider/image_provider.dart';
+import 'features/home/presentation/provider/qr_code_provider.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -26,6 +27,7 @@ Future<void> main() async {
         ChangeNotifierProvider(create: (_) => PasswordVisibilityProvider()),
         ChangeNotifierProvider(create: (_) => ImageSelectionModel()),
         ChangeNotifierProvider(create: (_) => SideBarProvider()),
+        ChangeNotifierProvider(create: (_) => QrCodeProvider()),
       ],
       child: const MyApp(),
     ),

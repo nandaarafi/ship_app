@@ -4,7 +4,7 @@ import 'package:equatable/equatable.dart';
 class ResiDataModel extends Equatable {
   final String? id;
   final String nama;
-  final int noResi;
+  final String noResi;
   final String status;
 
   ResiDataModel({

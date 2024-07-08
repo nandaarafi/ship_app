@@ -3,7 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:ship_apps/core/constants/colors.dart';
 import 'package:ship_apps/core/helper/helper_functions.dart';
+import 'package:ship_apps/core/routes/routes.dart';
 import 'package:ship_apps/core/theme/text_style.dart';
+import 'package:ship_apps/core/widgets/show_dialog.dart';
 import 'package:ship_apps/features/home/domain/resi_data_model.dart';
 import 'package:ship_apps/features/home/presentation/cubit/resi_cubit.dart';
 
@@ -61,13 +63,33 @@ class _CheckResiScreenState extends State<CheckResiScreen> {
                                 borderRadius: BorderRadius.circular(25),
                                 color: SColors.primaryBackground
                             ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text("Nama    : ${resi.nama}",style: STextStyle.labelStyle,),
-                                Text("No Resi  : ${resi.noResi.toString()}",style: STextStyle.labelStyle,),
-                                Text("Status   : ${resi.status}",style: STextStyle.labelStyle,),
-                            ],
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text("Nama    : ${resi.nama}",style: STextStyle.labelStyle,),
+                                    Text("No Resi  : ${resi.noResi}",style: STextStyle.labelStyle,),
+                                    Text("Status   : ${resi.status}",style: STextStyle.labelStyle,),
+                                ],
+                                ),
+                                      IconButton(
+                                  onPressed: () {
+                                    CustomShowDialog.showOnPressedDialog(
+                                        context,
+                                        title: "Info",
+                                        message: "Apakah kamu yakin ingin menghapus Resi ini",
+                                        isCancel: true,
+                                        onPressed: (){
+                                          context.read<ResiCubit>().deleteResi(resiId: resi.id!);
+                                          AppRouter.router.pop();
+                                        });
+                                        },
+                                  icon: Icon(Icons.delete),
+                                ),
+
+                              ],
                             ),
                           );
                         },

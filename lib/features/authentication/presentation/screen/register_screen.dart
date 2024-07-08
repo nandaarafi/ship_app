@@ -67,22 +67,21 @@ class _RegisterScreenState extends State<RegisterScreen> {
     Widget inputSection() {
       Widget usernameInput() {
         // final emailFocusNode = FocusNode(); // Create a FocusNode
-        return CustomTextFormField(
-          title: 'Username ',
-          // hintText: 'admin123 ',
+        return CustomTextFormFieldSuggest(
+          hintText: "Username",
+          title: 'Username',
+          // obsecureText: passwordVisibilityProvider.obscureText,
           controller: usernameController,
-          // icon: Icon(Icons.mail),
-          // focusNode: emailFocusNode,
+          validationSuggest: "Gunakan angka, huruf, atau spesial karakter",
         );
       }
       Widget emailInput() {
         final emailFocusNode = FocusNode(); // Create a FocusNode
-        return CustomTextFormField(
+        return CustomTextFormFieldSuggest(
           title: 'Email ',
-          // hintText: 'contoh@gmail.com ',
+          hintText: 'admin@gmail.com',
           controller: emailController,
-          // icon: Icon(Icons.mail),
-          // focusNode: emailFocusNode,
+          validationSuggest: "Gunakan format email yang benar",
         );
       }
       Widget checkBoxTampilkanPassword() {
@@ -112,21 +111,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
         final passFocusNode = FocusNode(); // Create a FocusNode
         return Consumer<PasswordVisibilityProvider>(
             builder: (context, passwordVisibilityProvider, _) {
-              return CustomTextFormField(
+              return CustomTextFormFieldSuggest(
+                hintText: "Password",
                 title: 'Password',
-                // hintText: 'password',
-                // onTap: () => FocusScope.of(context).unfocus(),
                 obsecureText: passwordVisibilityProvider.obscureText,
                 controller: passwordController,
-
-                // icon: IconButton(
-                //     onPressed: () {
-                //       passwordVisibilityProvider.toggleObscureText();
-                //     },
-                //     icon: Icon(passwordVisibilityProvider.obscureText
-                //         ? Icons.visibility
-                //         : Icons.visibility_off)
-                // )
+                validationSuggest: "Gunakan 6 karakter atau lebih dengan campuran huruf dan nomer",
               );
             });
       }

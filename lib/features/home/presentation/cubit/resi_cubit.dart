@@ -23,7 +23,7 @@ class ResiCubit extends Cubit<ResiState> {
   }
   void createNewResi({
     required String nama,
-    required int noResi,
+    required String noResi,
     required String status,
   }) async {
     try {
@@ -37,6 +37,20 @@ class ResiCubit extends Cubit<ResiState> {
       emit(AddResiSuccess());
     } catch (e) {
       emit(ResiFailed(e.toString()));
+    }
+  }
+
+  void deleteResi({
+    required String resiId,
+}) async {
+    try{
+      emit(ResiLoading());
+      await ResiRemoteDataSource().deleteResiData(resiId);
+      List<ResiDataModel> resiData = await ResiRemoteDataSource().fetchResiData();
+      emit(AllResiSuccess(resiData));
+    } catch (e) {
+      emit(ResiFailed(e.toString()));
+      throw e;
     }
   }
 }

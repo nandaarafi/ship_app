@@ -20,4 +20,17 @@ class HistoryCubit extends Cubit<HistoryState> {
       emit(HistoryFailed(e.toString()));
     }
   }
+
+  void deleteHistoryData({
+    required String historyId,
+}) async {
+    try{
+      emit(HistoryLoading());
+      await HistoryRemoteDataSource().deleteHistoryData(historyId);
+      emit(DeleteHistorySuccess());
+    } catch (e) {
+      emit(HistoryFailed(e.toString()));
+      throw e;
+    }
+  }
 }

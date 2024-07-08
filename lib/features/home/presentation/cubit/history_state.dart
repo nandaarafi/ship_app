@@ -18,6 +18,8 @@ class AllHistorySuccess extends HistoryState {
   List<Object> get props => [history];
 }
 
+class DeleteHistorySuccess extends HistoryState {}
+
 class HistoryFailed extends HistoryState {
   final String error;
 

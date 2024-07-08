@@ -2,11 +2,14 @@ import 'dart:convert';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:provider/provider.dart';
 import 'package:ship_apps/features/home/data/home_firebase_notification_data_source.dart';
 
 import '../../../core/routes/constants.dart';
 import '../../../core/routes/routes.dart';
+import '../presentation/provider/qr_code_provider.dart';
 
 
 Future<void> handleBackgroundMessage(RemoteMessage message) async {
@@ -29,6 +32,7 @@ class FirebaseApi {
   void handleMessage(RemoteMessage? message){
     if (message == null) return;
     AppRouter.router.pushNamed(Routes.profileNamedPage);
+    // final qrCodeProvider = Provider.of<QrCodeProvider>(AppRouter.router., listen: false);
   }
 
   Future initPushNotifications() async {

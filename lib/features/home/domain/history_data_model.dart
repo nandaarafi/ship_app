@@ -17,7 +17,7 @@ class HistoryDataModel extends Equatable {
   Map<String, dynamic> toJson() {
     return {
       'nama': nama,
-      'waktu': FieldValue.serverTimestamp(),
+      'waktu': waktu,
       'status': status,
     };
   }

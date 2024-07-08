@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 import 'package:ship_apps/core/widgets/cliper_oval.dart';
+import 'package:ship_apps/features/home/data/resi_migrate_remote_data_source.dart';
 
 import '../../../../core/constants/colors.dart';
 import '../../../../core/helper/helper_functions.dart';
@@ -33,6 +34,27 @@ class _LoginScreenState extends State<LoginScreen> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final formKey = GlobalKey<FormState>();
+
+
+  void _exportResiDataCollection() async {
+    await ResiMigrateRemoteDataSource().exportResiDataCollection('export_resiData.json');
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Export completed!')));
+  }
+
+
+  void _importResiDataCollection() async {
+    await ResiMigrateRemoteDataSource().importResiDataCollection('export_resiData.json');
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Import completed!')));
+  }
+
+  void _exportHistoryCollection() async {
+    await ResiMigrateRemoteDataSource().exportHistoryCollection('export_history.json');
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Export completed!')));
+  }
+  void _importHistoryDataCollection() async {
+    await ResiMigrateRemoteDataSource().importHistoryCollection('export_history.json');
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Import completed!')));
+  }
 
   void initState() {
     super.initState();
@@ -64,8 +86,9 @@ class _LoginScreenState extends State<LoginScreen> {
     Widget inputSection() {
       Widget emailInput() {
         final emailFocusNode = FocusNode(); // Create a FocusNode
-        return CustomTextFormField(
+        return CustomTextFormFieldSuggest(
           title: 'Email ',
+          hintText: 'admin@gmail.com',
           controller: emailController,
         );
       }
@@ -96,7 +119,8 @@ class _LoginScreenState extends State<LoginScreen> {
         final passFocusNode = FocusNode(); // Create a FocusNode
         return Consumer<PasswordVisibilityProvider>(
             builder: (context, passwordVisibilityProvider, _) {
-          return CustomTextFormField(
+          return CustomTextFormFieldSuggest(
+              hintText: "Password",
               title: 'Password',
               obsecureText: passwordVisibilityProvider.obscureText,
               controller: passwordController,
@@ -207,6 +231,14 @@ class _LoginScreenState extends State<LoginScreen> {
               SizedBox(height: SHelperFunctions.screenHeight(context) * 0.04),
               haventAccount(),
               forgotPassword(),
+              // ElevatedButton(
+              //   onPressed: _exportHistoryCollection,
+              //   child: Text('Export Collection'),
+              // ),
+              // ElevatedButton(
+              //   onPressed: _importHistoryDataCollection,
+              //   child: Text('Import Collection'),
+              // ),
             ],
           ),
         ),

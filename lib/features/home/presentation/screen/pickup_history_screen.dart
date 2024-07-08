@@ -68,7 +68,8 @@ class _PickupHistoryScreenState extends State<PickupHistoryScreen>{
                                   children: [
                                     Text("Nama    : ${history.nama}",style: STextStyle.labelStyle,),
                                     Text("Waktu   : ${DateFormat('kk.mm\n'
-                                        '                 dd/MM/yyyy').format(DateTime.parse(history.waktu))}"),
+                                        '                 dd/MM/yyyy').format(DateTime.parse(history.waktu))}",
+                                      style: STextStyle.labelStyle,),
                                     // Text("Waktu   : ${DateFormat('kk.mm\n'
                                     //     '                 dd/MM/yyyy').format(history.waktu)}",style: STextStyle.labelStyle,),
                                     Text("Status   : ${history.status}",style: STextStyle.labelStyle,),

@@ -128,7 +128,7 @@ class _ProfileScreenState extends State<ProfileScreen>{
                                   ],
           
                                 ),
-                                CustomButton(
+                                CustomButtonColorState(
                                   title: 'KODE SAYA',
                                   margin: EdgeInsets.only(top: 20),
                                   onPressed: () {
