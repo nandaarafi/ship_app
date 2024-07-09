@@ -16,7 +16,6 @@ class ResiDataModel extends Equatable {
 
   Map<String, dynamic> toJson() {
     return {
-      // 'id': id,
       'nama': nama,
       'noResi': noResi,
       'status': status,

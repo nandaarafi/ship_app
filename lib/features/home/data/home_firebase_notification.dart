@@ -3,6 +3,7 @@ import 'package:device_info_plus/device_info_plus.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:provider/provider.dart';
+import 'package:ship_apps/features/home/data/resi_remote_data_source.dart';
 
 import '../../../core/routes/constants.dart';
 import '../../../core/routes/routes.dart';
@@ -14,6 +15,19 @@ Future<void> handleBackgroundMessage(RemoteMessage message) async {
   print('Body: ${message.notification?.body}');
   print('Payload: ${message.data}');
   // AppRouter.router.go(Routes.profileNamedPage);
+
+}
+String parseTrackingNumber(String notificationBody) {
+  try{
+    RegExp regExp = RegExp(r'no resi: (\S+)');
+    Match? match = regExp.firstMatch(notificationBody);
+    if (match != null) {
+      return match.group(1)!;
+    }
+    return "";
+  } catch (e){
+    throw e;
+  }
 
 }
 class FirebaseApi {
@@ -28,11 +42,13 @@ class FirebaseApi {
 
   final _localNotifications = FlutterLocalNotificationsPlugin();
 
-  void handleRemoteServerMessage(RemoteMessage? message){
+  Future<void> handleRemoteServerMessage(RemoteMessage? message) async {
     if (message == null) return;
     AppRouter.router.go(Routes.profileNamedPage);
     final qrCodeProvider = Provider.of<QrCodeProvider>(AppRouter.navigatorKey.currentContext!, listen: false);
     qrCodeProvider.setQrCode(true);
+    String notifBody = parseTrackingNumber(message.notification!.body!);
+    await ResiRemoteDataSource().getSpecificNoResiData(notifBody);
   }
 
   Future initPushNotifications() async {
@@ -81,10 +97,17 @@ class FirebaseApi {
       settings,
       // Set the local notification when tapped, and
       // When app is openned notification tapped
-      onDidReceiveNotificationResponse: (details) {
+      onDidReceiveNotificationResponse: (details) async {
+
         AppRouter.router.go(Routes.profileNamedPage);
+
         final qrCodeProvider = Provider.of<QrCodeProvider>(AppRouter.navigatorKey.currentContext!, listen: false);
         qrCodeProvider.setQrCode(true);
+
+        Map<String, dynamic> payloadData = jsonDecode(details.payload!);
+        String? body = payloadData['notification']?['body'];
+        String notifBody = parseTrackingNumber(body!);
+        await ResiRemoteDataSource().getSpecificNoResiData(notifBody);
       },
     );
     final platform = _localNotifications.resolvePlatformSpecificImplementation<

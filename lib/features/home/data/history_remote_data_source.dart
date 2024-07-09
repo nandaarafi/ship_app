@@ -22,6 +22,7 @@ class HistoryRemoteDataSource {
         return HistoryDataModel.fromJson(
             e.id, e.data() as Map<String, dynamic>);
       }).toList();
+      print(historyDataList);
       return historyDataList;
     } catch (e) {
       throw e;

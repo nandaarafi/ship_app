@@ -53,6 +53,7 @@ class _QrCodeScreenState extends State<QrCodeScreen>{
           canPop = true;
           ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
             content: Text("Tekan back lagi untuk kembali"),
+            duration: Duration(seconds: 2),
           ));
         }
         else {
