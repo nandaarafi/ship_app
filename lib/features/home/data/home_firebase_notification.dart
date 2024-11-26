@@ -46,7 +46,9 @@ class FirebaseApi {
     if (message == null) return;
     AppRouter.router.go(Routes.profileNamedPage);
     final qrCodeProvider = Provider.of<QrCodeProvider>(AppRouter.navigatorKey.currentContext!, listen: false);
+
     qrCodeProvider.setQrCode(true);
+
     String notifBody = parseTrackingNumber(message.notification!.body!);
     await ResiRemoteDataSource().getSpecificNoResiData(notifBody);
   }

@@ -1,6 +1,10 @@
 # ship_apps
 
-A new Flutter project.
+Ship Apps revolutionizes delivery with IoT technology. Track your shipments in real-time, from pickup to doorstep, ensuring transparency and efficiency.
+
+<div style="text-align:center">
+  <img src="assetresult/flutter_app_showcase.png" alt="App Logo" style="height:200px; width:200px; object-fit:cover;">
+</div>
 
 ## Getting Started
 

@@ -167,7 +167,10 @@ class _LoginScreenState extends State<LoginScreen> {
         return BlocConsumer<AuthCubit, AuthState>(
           listener: (context, state) {
             if (state is AuthSuccess) {
+
               AppRouter.router.go(Routes.profileNamedPage);
+
+
             } else if (state is AuthFailed) {
               SHelperFunctions.dismissKeyboard(context);
               showDialog(

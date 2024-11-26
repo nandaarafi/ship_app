@@ -49,8 +49,9 @@ dependencies:
   shimmer: ^3.0.0
   logger: ^2.3.0
 
+
   #Notification
-  flutter_local_notifications: ^13.0.0
+  flutter_local_notifications: ^17.2.2
   firebase_messaging: ^14.9.4
   device_info_plus: ^10.1.0
 
@@ -99,6 +100,7 @@ flutter:
     - assets/images/
     - assets/images/vector_asset/
     - assets/images/background/
+    - assetresult/
     #    - lib/features/home/data/productdata.json
 
   fonts:

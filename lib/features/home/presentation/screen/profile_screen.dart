@@ -133,6 +133,7 @@ class _ProfileScreenState extends State<ProfileScreen>{
                                 ),
                                 Consumer<QrCodeProvider>(
                                   builder: (context, qrProvider, child) {
+                                    // return Container();
                                   return CustomButtonColorState(
                                   backgroundColor: qrProvider.isQrCode
                                       ? SColors.primaryBackground
@@ -141,7 +142,7 @@ class _ProfileScreenState extends State<ProfileScreen>{
                                   margin: EdgeInsets.only(top: 20),
                                   onPressed: () {
                                     if (qrProvider.isQrCode){
-                                      AppRouter.router.push(Routes.qrCodeNamedPage, extra: user);
+                                      AppRouter.router.go(Routes.qrCodeNamedPage, extra: user);
                                     }
                                     else {
                                       // CustomShowDialog.showCustomDialog(
@@ -194,6 +195,7 @@ class _ProfileScreenState extends State<ProfileScreen>{
                       if (state is AuthSuccess){
                         UserModel user = state.user;
                         return FloatingActionButton(
+                          // backgroundColor: Colors.blueGrey,
                           backgroundColor: SColors.secondaryBackground,
 
                           onPressed: () {

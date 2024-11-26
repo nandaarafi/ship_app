@@ -78,7 +78,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       Widget emailInput() {
         final emailFocusNode = FocusNode(); // Create a FocusNode
         return CustomTextFormFieldSuggest(
-          title: 'Email ',
+          title: 'Email',
           hintText: 'admin@gmail.com',
           controller: emailController,
           validationSuggest: "Gunakan format email yang benar",
@@ -274,7 +274,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
             primaryColor: SColors.primaryBackground,
             borderRadius: 2000,
             child: SingleChildScrollView(
-              child: Column(children: [
+              child: Column(
+                children: [
                 Text("MENU REGISTER",
                   style: TextStyle(
                       fontFamily: 'Poppins',
@@ -284,10 +285,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                 ),
                 SizedBox(height: 18),
+
                 GestureDetector(
-                  onTap: () {
-                    getImageFromGallery();
-                  },
+                onTap: () {
+                  getImageFromGallery();
+                },
+
                   child: CircleAvatar(
                   backgroundColor: Colors.white,
                   backgroundImage: imgXFile == null

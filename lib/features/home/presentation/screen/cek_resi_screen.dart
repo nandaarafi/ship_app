@@ -49,12 +49,14 @@ class _CheckResiScreenState extends State<CheckResiScreen> {
                   builder: (context, state) {
                     if (state is AllResiSuccess){
                       List<ResiDataModel> resis = state.resi;
+                      // print(resis);
                       return ListView.builder(
                         shrinkWrap: true,
                         controller: ScrollController(),
                         itemCount: resis.length,
                         itemBuilder: (context, index) {
                           ResiDataModel resi = resis[index];
+                          // print(resi.noResi);
                           return Container(
                             padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
                             margin: EdgeInsets.all(10),
@@ -70,7 +72,16 @@ class _CheckResiScreenState extends State<CheckResiScreen> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text("Nama    : ${resi.nama}",style: STextStyle.labelStyle,),
-                                    Text("No Resi  : ${resi.noResi}",style: STextStyle.labelStyle,),
+                                    // Text("No Resi  : ${resi.noResi}",style: STextStyle.labelStyle,),
+                                    Row(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Text("No Resi  : ", style: STextStyle.labelStyle,),
+                                        Container(
+                                            width: SHelperFunctions.screenWidth(context) * 0.4,
+                                            child: Text("${resi.noResi}",style: STextStyle.labelStyle)),
+                                      ],
+                                    ),
                                     Text("Status   : ${resi.status}",style: STextStyle.labelStyle,),
                                 ],
                                 ),

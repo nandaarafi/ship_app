@@ -67,6 +67,7 @@ class _PickupHistoryScreenState extends State<PickupHistoryScreen>{
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text("Nama    : ${history.nama}",style: STextStyle.labelStyle,),
+                                    // Text("Waktu : ${DateFormat(history.waktu)}"),
                                     Text("Waktu   : ${DateFormat('kk.mm\n'
                                         '                 dd/MM/yyyy').format(DateTime.parse(history.waktu))}",
                                       style: STextStyle.labelStyle,),

@@ -25,22 +25,7 @@ class QrCodeScreen extends StatefulWidget {
 }
 
 class _QrCodeScreenState extends State<QrCodeScreen>{
-  //
-  // QrCodeProvider? _qrCodeProvider;
-  //
-  // @override
-  // void didChangeDependencies() {
-  //   super.didChangeDependencies();
-  //   // Save the reference to the provider
-  //   _qrCodeProvider = context.read<QrCodeProvider>();
-  // }
-  //
-  // @override
-  // void dispose() {
-  //   // Reset the isQrCode property when the screen is disposed
-  //   _qrCodeProvider?.setQrCode(false);
-  //   super.dispose();
-  // }
+
   bool canPop = false;
   // AppRouter.router.pop();
   // Provider.of<QrCodeProvider>(context, listen: false).setQrCode(false);
@@ -57,10 +42,22 @@ class _QrCodeScreenState extends State<QrCodeScreen>{
           ));
         }
         else {
-          Provider.of<QrCodeProvider>(context, listen: false).setQrCode(false);
+          Provider.of<QrCodeProvider>(context, listen: false)
+              .setQrCode(false);
         }
       },
       child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: SColors.primaryBackground,
+          title: Text("QRCode"),
+          centerTitle: true,
+          leading: IconButton(
+            onPressed: () {
+              AppRouter.router.go(Routes.profileNamedPage);
+            },
+            icon: Icon(Icons.arrow_back),
+          ),
+        ),
         backgroundColor: SColors.secondaryBackground,
         body: Padding(
           padding: EdgeInsets.all(16),
@@ -72,22 +69,23 @@ class _QrCodeScreenState extends State<QrCodeScreen>{
               style: STextStyle.titleStyle,
               ),
               SizedBox(height: SHelperFunctions.screenHeight(context) * 0.1),
+
               QrImageView(
                 data: widget.userCache.username,
                 version: QrVersions.auto,
                 size: 250,
               ),
+
               SizedBox(height: SHelperFunctions.screenHeight(context) * 0.02),
 
               Text(widget.userCache.username,
               style: STextStyle.bodyStyle,
               ),
               SizedBox(height: SHelperFunctions.screenHeight(context) * 0.02),
+
               Text("QR Code hanya bisa sekali lihat",
               style: STextStyle.bodyStyle.copyWith(color: Colors.red),
               )
-
-
             ],
           ),
         ),

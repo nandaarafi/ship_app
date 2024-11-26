@@ -57,7 +57,7 @@ class _DaftarResiScreenState extends State<DaftarResiScreen> {
                                 ),
 
                             Text("Pastikan nama dan nomor resi\n"
-                                "yang anda masukan masukan benar !!",
+                                "yang anda masukan benar !!",
                               style: STextStyle.bodyStyle,
                               textAlign: TextAlign.center,
                             ),
